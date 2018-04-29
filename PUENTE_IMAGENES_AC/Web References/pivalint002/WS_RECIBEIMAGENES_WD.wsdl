@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s1="http://tempuri.org/AbstractTypes" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="RECIBE">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ArchivoZip" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="Usuario" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idTramite" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="idExpediente" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="nss" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RECIBEResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RECIBEResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+    <s:schema targetNamespace="http://tempuri.org/AbstractTypes">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <s:complexType name="StringArray">
+        <s:complexContent mixed="false">
+          <s:restriction base="soapenc:Array">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="String" type="s:string" />
+            </s:sequence>
+          </s:restriction>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="RECIBESoapIn">
+    <wsdl:part name="parameters" element="tns:RECIBE" />
+  </wsdl:message>
+  <wsdl:message name="RECIBESoapOut">
+    <wsdl:part name="parameters" element="tns:RECIBEResponse" />
+  </wsdl:message>
+  <wsdl:message name="RECIBEHttpGetIn">
+    <wsdl:part name="ArchivoZip" type="s1:StringArray" />
+    <wsdl:part name="Usuario" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="idTramite" type="s:string" />
+    <wsdl:part name="idExpediente" type="s:string" />
+    <wsdl:part name="nss" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RECIBEHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="RECIBEHttpPostIn">
+    <wsdl:part name="ArchivoZip" type="s1:StringArray" />
+    <wsdl:part name="Usuario" type="s:string" />
+    <wsdl:part name="Password" type="s:string" />
+    <wsdl:part name="idTramite" type="s:string" />
+    <wsdl:part name="idExpediente" type="s:string" />
+    <wsdl:part name="nss" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RECIBEHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="WS_RECIBEIMAGENES_WDSoap">
+    <wsdl:operation name="RECIBE">
+      <wsdl:input message="tns:RECIBESoapIn" />
+      <wsdl:output message="tns:RECIBESoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_RECIBEIMAGENES_WDHttpGet">
+    <wsdl:operation name="RECIBE">
+      <wsdl:input message="tns:RECIBEHttpGetIn" />
+      <wsdl:output message="tns:RECIBEHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="WS_RECIBEIMAGENES_WDHttpPost">
+    <wsdl:operation name="RECIBE">
+      <wsdl:input message="tns:RECIBEHttpPostIn" />
+      <wsdl:output message="tns:RECIBEHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WS_RECIBEIMAGENES_WDSoap" type="tns:WS_RECIBEIMAGENES_WDSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RECIBE">
+      <soap:operation soapAction="http://tempuri.org/RECIBE" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_RECIBEIMAGENES_WDSoap12" type="tns:WS_RECIBEIMAGENES_WDSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="RECIBE">
+      <soap12:operation soapAction="http://tempuri.org/RECIBE" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_RECIBEIMAGENES_WDHttpGet" type="tns:WS_RECIBEIMAGENES_WDHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="RECIBE">
+      <http:operation location="/RECIBE" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WS_RECIBEIMAGENES_WDHttpPost" type="tns:WS_RECIBEIMAGENES_WDHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="RECIBE">
+      <http:operation location="/RECIBE" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WS_RECIBEIMAGENES_WD">
+    <wsdl:port name="WS_RECIBEIMAGENES_WDSoap" binding="tns:WS_RECIBEIMAGENES_WDSoap">
+      <soap:address location="http://pivalint002/kaizen/WS_RECIBEIMAGENES_WD.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_RECIBEIMAGENES_WDSoap12" binding="tns:WS_RECIBEIMAGENES_WDSoap12">
+      <soap12:address location="http://pivalint002/kaizen/WS_RECIBEIMAGENES_WD.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_RECIBEIMAGENES_WDHttpGet" binding="tns:WS_RECIBEIMAGENES_WDHttpGet">
+      <http:address location="http://pivalint002/kaizen/WS_RECIBEIMAGENES_WD.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WS_RECIBEIMAGENES_WDHttpPost" binding="tns:WS_RECIBEIMAGENES_WDHttpPost">
+      <http:address location="http://pivalint002/kaizen/WS_RECIBEIMAGENES_WD.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
