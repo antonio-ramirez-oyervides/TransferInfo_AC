@@ -19,11 +19,22 @@
 
         .starter-template {
             padding: 40px 15px;
-            text-align: center;
+        }
+        .auto-style1 {
+            width: 430px;
+            border-collapse: collapse;
+            border: 1px solid #000000;
+        }
+        .labelright{
+            text-align:right;
+        }
+        .labelcenter{
+            text-align:center;
         }
     </style>
 </head>
 <body>
+    <form id="form1" runat="server">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -49,7 +60,45 @@
     <div class="container">
         <div class="starter-template">
 
-
+              <table cellpadding="2" cellspacing="3" class="auto-style1">
+                <tr>
+                    <td class="labelright">Usuario Win:</td>
+                    <td><asp:TextBox ID="txtUsuario" runat="server" Text="capturista"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td class="labelright">Contraseña Win:</td>
+                    <td><asp:TextBox ID="txtContrasena" runat="server" Text="capturista"></asp:TextBox></td>
+                </tr>
+                <tr>
+                    <td class="labelright">Id Tramite:</td>
+                    <td>
+                        <asp:TextBox ID="txtIdTramite" runat="server" Text="100"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelright">Id Expedientes:</td>
+                    <td>
+                        <asp:TextBox ID="txtIdExpedientes" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelright">NSS:</td>
+                    <td>
+                        <asp:TextBox ID="txtNSS" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="labelright">Archivo:</td>
+                    <td>
+                        <asp:FileUpload ID="fuArchivo" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="labelcenter" >
+                        <asp:Button ID="btnTestWS" runat="server" Text="Test WS" OnClick="btnTestWS_Click" />
+                    </td>
+                </tr>
+            </table>
 
         </div>
     </div>
@@ -59,5 +108,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="Scripts/jquery-1.9.1.min.js"></script>
     <script src="Scripts/bootstrap.min.js"></script>
+    </form>
 </body>
 </html>

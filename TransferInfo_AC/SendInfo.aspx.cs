@@ -11,6 +11,20 @@ namespace TransferInfo_AC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (IsPostBack == false)
+            {
+                Random rnd = new Random(DateTime.Now.Second);
+                string NSS = string.Format("{0}{1}", DateTime.Now.Year.ToString(), rnd.Next().ToString().Substring(0,7));
+                string idExpediente = rnd.Next().ToString().Substring(0, 5);
+
+                txtNSS.Text = NSS;
+                txtIdExpedientes.Text = idExpediente;
+            }
+        }
+
+        protected void btnTestWS_Click(object sender, EventArgs e)
+        {
+            
 
         }
     }

@@ -20,21 +20,24 @@ namespace PUENTE_IMAGENES_AC
     {
 
         [WebMethod]
-        public string ENLACE(string usuarioWin, string contraseñaWin, string idTramite, string idExpedientes, string nss, byte[] archivo)
+        public string ENLACE(string usuarioWin, string contrasenaWin, string idTramite, string idExpedientes, string nss, byte[] archivo)
         {
             pivalint002.WS_RECIBEIMAGENES_WD webService = new pivalint002.WS_RECIBEIMAGENES_WD();
             string usuario = ConfigurationManager.AppSettings.Get("userWinston").ToString();
             string contraseña = ConfigurationManager.AppSettings.Get("pswWinston").ToString();
             string respuesta=string.Empty;
 
-            if (usuario == usuarioWin && contraseña == contraseñaWin)
+            if (usuario == usuarioWin && contraseña == contrasenaWin)
             {
-                Monitor = new Monitor
+                Monitor monitor = new Monitor();
 
+                monitor.SaveLog(usuarioWin, idTramite, nss, idExpedientes, "servicio ejecutado");
+                //Byte[] archivo = System.IO.File.ReadAllBytes(@"C:\Users\ymat001\Downloads\libera.zip");
+                string resp = monitor.SaveRequest("ymat001", "1", "23456787890", "223344", archivo);
 
 
                 //OBTENEMOS RESPUESTA DEL WEB SERVICE 2 Y LA ASIGNAMOS A VARIABLE PARA MOSTRARLA EN ALERTA A WINSTON
-                respuesta = webService.RECIBE(archivo, usuarioWin, contraseñaWin, idTramite, idExpedientes, nss);
+                respuesta = webService.RECIBE(archivo, usuarioWin, contrasenaWin, idTramite, idExpedientes, nss);
                 return respuesta;
 
 
