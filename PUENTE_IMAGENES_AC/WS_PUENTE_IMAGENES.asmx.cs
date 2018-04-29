@@ -26,20 +26,43 @@ namespace PUENTE_IMAGENES_AC
             string usuario = ConfigurationManager.AppSettings.Get("userWinston").ToString();
             string contraseña = ConfigurationManager.AppSettings.Get("pswWinston").ToString();
             string respuesta=string.Empty;
+            int trace = 0;
 
             if (usuario == usuarioWin && contraseña == contrasenaWin)
             {
                 Monitor monitor = new Monitor();
 
-                monitor.SaveLog(usuarioWin, idTramite, nss, idExpedientes, "servicio ejecutado");
-                //Byte[] archivo = System.IO.File.ReadAllBytes(@"C:\Users\ymat001\Downloads\libera.zip");
-                string resp = monitor.SaveRequest("ymat001", "1", "23456787890", "223344", archivo);
+                try
+                {
+                    monitor.SaveLog(usuarioWin, idTramite, nss, idExpedientes, "Log Guardado");
+                    trace += 1;
 
+                    monitor.SaveRequest(usuarioWin, idTramite, nss, idExpedientes, archivo);
+                    trace += 1; 
+                }
+                catch (Exception ex)
+                {
+                    respuesta = string.Format("ERROR AL EJECUTAR PROCESOS GUARDADO LOG: {0} - {1}", trace.ToString(), ex.Message);
+                    return respuesta;
+                }
 
-                //OBTENEMOS RESPUESTA DEL WEB SERVICE 2 Y LA ASIGNAMOS A VARIABLE PARA MOSTRARLA EN ALERTA A WINSTON
-                respuesta = webService.RECIBE(archivo, usuarioWin, contrasenaWin, idTramite, idExpedientes, nss);
+                try
+                {
+                    //OBTENEMOS RESPUESTA DEL WEB SERVICE 2 Y LA ASIGNAMOS A VARIABLE PARA MOSTRARLA EN ALERTA A WINSTON
+                    respuesta = webService.RECIBE(archivo, usuarioWin, contrasenaWin, idTramite, idExpedientes, nss);
+                    trace += 1;
+
+                    monitor.SaveLog(respuesta, "Servicio ejecutado");
+                    trace += 1;
+                }
+                catch(Exception ex)
+                {
+                    respuesta = string.Format("ERROR AL EJECUTAR WS: {0} - {1}" ,trace.ToString(), ex.Message);
+                    monitor.SaveLog(respuesta, "Servicio ejecutado");
+                    return respuesta;
+                }
+
                 return respuesta;
-
 
             }
             return "02 Usuario o contraseña incorrectos";

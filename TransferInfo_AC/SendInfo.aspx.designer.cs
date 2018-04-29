@@ -76,6 +76,15 @@ namespace TransferInfo_AC {
         protected global::System.Web.UI.WebControls.FileUpload fuArchivo;
         
         /// <summary>
+        /// lblResultado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblResultado;
+        
+        /// <summary>
         /// btnTestWS control.
         /// </summary>
         /// <remarks>
@@ -83,5 +92,14 @@ namespace TransferInfo_AC {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnTestWS;
+        
+        /// <summary>
+        /// btnNewInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnNewInfo;
     }
 }

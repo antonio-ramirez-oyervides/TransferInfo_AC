@@ -1,0 +1,9 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TransferInfo_AC.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TransferInfo_AC_PUENTE_IMAGENES_AC_WS_PUENTE_IMAGENES" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:7363/WS_PUENTE_IMAGENES.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

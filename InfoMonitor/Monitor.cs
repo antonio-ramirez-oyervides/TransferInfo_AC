@@ -10,10 +10,6 @@ namespace InfoMonitor
 {
     public class Monitor
     {
-        public Monitor()
-        {
-            Monitor t = new Monitor();
-        }
         public string SaveRequest(string IdUsuario, string IdTramite, string NSS, string idExpediente, byte[] ArchivoZip)
         {
             //Byte[] ArchivoZip    log de sucesos cuando causa error.
@@ -64,6 +60,32 @@ namespace InfoMonitor
                 using (StreamWriter sw = new StreamWriter(rutaLog + "\\Log.txt", true, System.Text.Encoding.UTF8))
                 {
                     sw.WriteLine("Log|" + IdUsuario + "|" + NSS + "|" + idExpediente + "|" + text + "|" + DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("h:mm:ss"));
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                return "ERROR|" + ex.Message.ToString();
+            }
+
+            return "OK|Servicio ejecutado correctamente.";
+        }
+
+        public string SaveLog(string mensaje, string text)
+        {
+            //Byte[] ArchivoZip    log de sucesos cuando causa error.
+            try
+            {
+                string rutaLog = ConfigurationManager.AppSettings["PathLog"].ToString() + "\\Log_" + DateTime.Now.ToString("ddMMyyyy");
+
+                if (!System.IO.Directory.Exists(rutaLog))
+                {
+                    System.IO.Directory.CreateDirectory(rutaLog);
+                }
+
+                using (StreamWriter sw = new StreamWriter(rutaLog + "\\Log.txt", true, System.Text.Encoding.UTF8))
+                {
+                    sw.WriteLine("Resultado WS|" + mensaje+ "|" + DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("h:mm:ss") + Environment.NewLine);
                     sw.Close();
                 }
             }

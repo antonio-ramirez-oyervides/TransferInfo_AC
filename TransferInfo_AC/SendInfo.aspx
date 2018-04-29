@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SendInfo.aspx.cs" Inherits="TransferInfo_AC.SendInfo" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,94 +21,85 @@
         .starter-template {
             padding: 40px 15px;
         }
-        .auto-style1 {
-            width: 430px;
-            border-collapse: collapse;
-            border: 1px solid #000000;
+
+        .labelright {
+            text-align: right;
         }
-        .labelright{
-            text-align:right;
+
+        .labelcenter {
+            text-align: center;
         }
-        .labelcenter{
-            text-align:center;
-        }
-    </style>
+
+        </style>
 </head>
 <body>
     <form id="form1" runat="server">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">TransferInfo</a>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">TransferInfo</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="Default.aspx">Inicio</a></li>
+                        <li class="active"><a href="SendInfo.aspx">Descarga Test</a></li>
+                        <li><a href="ViewLog.aspx">Visor Log</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
             </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="Default.aspx">Inicio</a></li>
-                    <li  class="active"><a href="SendInfo.aspx">Descarga Test</a></li>
-                    <li><a href="ViewLog.aspx">Visor Log</a></li>
-                </ul>
+        </nav>
+
+        <div class="container starter-template">
+            <div class="row">
+                <div class="col-md-4 col-md-offset-4">
+                    <div class="form-group">
+                        <label>Usuario Win:</label>
+                        <asp:TextBox ID="txtUsuario" runat="server" CssClass="form-control" Text="capturista"></asp:TextBox>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Contraseña Win:</label>
+                        <asp:TextBox ID="txtContrasena" runat="server" CssClass="form-control" Text="capturista"></asp:TextBox>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Id Tramite:</label>
+                        <asp:TextBox ID="txtIdTramite" runat="server" CssClass="form-control" Text="100"></asp:TextBox>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pwd">Id Expedientes:</label>
+                        <asp:TextBox ID="txtIdExpedientes" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">NSS:</label>
+                        <asp:TextBox ID="txtNSS" CssClass="form-control" runat="server"></asp:TextBox>
+                    </div>
+                    <div class="form-group">
+                        <label for="pwd">Archivo:</label>
+                        <asp:FileUpload ID="fuArchivo" CssClass="form-control" runat="server" />
+                    </div>
+
+                    <div class="checkbox">
+                        <asp:Label runat="server" ID="lblResultado" Text=""></asp:Label>
+                    </div>
+                    <asp:Button ID="btnTestWS" runat="server" Text="Test WS" class="btn btn-info" OnClick="btnTestWS_Click" />
+                &nbsp;&nbsp;
+                     <asp:Button ID="btnNewInfo" runat="server" Text="Nuevos Datos" class="btn btn-info" OnClick="btnNewInfo_Click" />
+                </div>
             </div>
-            <!--/.nav-collapse -->
         </div>
-    </nav>
 
-    <div class="container">
-        <div class="starter-template">
-
-              <table cellpadding="2" cellspacing="3" class="auto-style1">
-                <tr>
-                    <td class="labelright">Usuario Win:</td>
-                    <td><asp:TextBox ID="txtUsuario" runat="server" Text="capturista"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td class="labelright">Contraseña Win:</td>
-                    <td><asp:TextBox ID="txtContrasena" runat="server" Text="capturista"></asp:TextBox></td>
-                </tr>
-                <tr>
-                    <td class="labelright">Id Tramite:</td>
-                    <td>
-                        <asp:TextBox ID="txtIdTramite" runat="server" Text="100"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="labelright">Id Expedientes:</td>
-                    <td>
-                        <asp:TextBox ID="txtIdExpedientes" runat="server"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="labelright">NSS:</td>
-                    <td>
-                        <asp:TextBox ID="txtNSS" runat="server"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="labelright">Archivo:</td>
-                    <td>
-                        <asp:FileUpload ID="fuArchivo" runat="server" />
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="labelcenter" >
-                        <asp:Button ID="btnTestWS" runat="server" Text="Test WS" OnClick="btnTestWS_Click" />
-                    </td>
-                </tr>
-            </table>
-
-        </div>
-    </div>
-    
-    <!-- Bootstrap core JavaScript
+        <!-- Bootstrap core JavaScript
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="Scripts/jquery-1.9.1.min.js"></script>
-    <script src="Scripts/bootstrap.min.js"></script>
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="Scripts/jquery-1.9.1.min.js"></script>
+        <script src="Scripts/bootstrap.min.js"></script>
     </form>
 </body>
 </html>
