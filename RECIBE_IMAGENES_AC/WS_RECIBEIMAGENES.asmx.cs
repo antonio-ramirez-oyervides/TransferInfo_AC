@@ -27,6 +27,21 @@ namespace WS_RECIBEIMAGENES_AC
         [WebMethod]
         public string RECIBE(byte[] ArchivoZip, string Usuario, string Password, string idTramite, string idExpediente, string nss)
         {
+            int paso = 0;
+            Monitor monitor = new Monitor();
+
+            try
+            {
+                monitor.SaveLog(Usuario, idTramite, nss, idExpediente, "Inicia RECIBE", nombreLog);
+                monitor.SaveRequest(Usuario, idTramite, nss, idExpediente, ArchivoZip, nombreLog);
+                paso += 1;
+            }
+            catch (Exception ex) {
+                monitor.SaveLog( Usuario, idTramite, nss, idExpediente, "Inicia RECIBE", nombreLog);
+                monitor.SaveLog("Error RECIBE", string.Format("Paso:{0}, Erorr:{1}", paso.ToString(), ex.Message), nombreLog);
+            }
+            
+
             string nombreImagenes = "";
             string mensaje = "";
             ZipFile zip = new ZipFile();
@@ -233,19 +248,23 @@ namespace WS_RECIBEIMAGENES_AC
         public void BorraImagenes(string nombreImagenes, string rutaBorrado, string zipBorrar, bool borraZip)
         {
             Monitor monitor = new Monitor();
+            int paso = 0;
             monitor.SaveLog("Inicia BorradoImagenes", nombreImagenes, nombreLog);
+            paso += 1;
 
             try
             {
                 //SI NO HAY IMAGENES SOLO BORRA EL ZIP
                 if (nombreImagenes != "" || nombreImagenes != null)
                 {
+                    paso += 1;
                     int i = 0;
                     int j = 0;
                     int count = nombreImagenes.Count(f => f == '#');
                     string[] imagen = new string[count];
                     string[] imgs = nombreImagenes.Split('#');
 
+                    paso += 1;
                     // Separa la cadena en palabras individuales guardandolas en una variable cada una
                     foreach (string palabra in imgs)
                     {
@@ -256,23 +275,25 @@ namespace WS_RECIBEIMAGENES_AC
                         }
                     }
 
+                    paso += 1;
                     for (j = 0; j < count; j++)
                     {
-                        if (System.IO.File.Exists(rutaBorrado + imagen[j]))
+                        if (File.Exists(rutaBorrado + imagen[j]))
                         {
                             try
                             {
-                                System.IO.File.Delete(rutaBorrado + imagen[j]);
+                                File.Delete(rutaBorrado + imagen[j]);
                             }
                             catch (System.IO.IOException e)
                             {
-                                Console.WriteLine(e.Message);
+                                monitor.SaveLog("Error BorradoImagenes", string.Format("Paso:{0}, RutaBorrado:{1}, Error:{2}", paso.ToString(), rutaBorrado, e.Message), nombreLog);
                                 return;
                             }
                         }
                     }
                 }
 
+                paso += 1;
                 if (borraZip == true)
                 {
                     //BORRA EL ZIP
@@ -283,7 +304,7 @@ namespace WS_RECIBEIMAGENES_AC
             }
             catch (Exception ex)
             {
-                monitor.SaveLog("Error BorradoImagenes", string.Format("RutaBorrado:{0}, Error:{1}", rutaBorrado, ex.Message), nombreLog);
+                monitor.SaveLog("Error BorradoImagenes", string.Format("Paso:{0}, RutaBorrado:{1}, Error:{2}", paso.ToString(),rutaBorrado, ex.Message), nombreLog);
             }
         }
     }

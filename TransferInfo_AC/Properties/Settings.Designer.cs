@@ -32,5 +32,15 @@ namespace TransferInfo_AC.Properties {
                 return ((string)(this["TransferInfo_AC_PUENTE_IMAGENES_AC_WS_PUENTE_IMAGENES"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.WebServiceUrl)]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost:24639/WS_RECIBEIMAGENES.asmx")]
+        public string TransferInfo_AC_RECIBE_IMAGENES_AC_WS_RECIBEIMAGENES {
+            get {
+                return ((string)(this["TransferInfo_AC_RECIBE_IMAGENES_AC_WS_RECIBEIMAGENES"]));
+            }
+        }
     }
 }

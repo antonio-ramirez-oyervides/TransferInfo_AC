@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WS_RECIBEIMAGENES_AC", "WS_RECIBEIMAGENES_AC\WS_RECIBEIMAGENES_AC.csproj", "{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferInfo_AC", "TransferInfo_AC\TransferInfo_AC.csproj", "{FE9D4E85-34B0-4EF4-8EFA-2A308935C45A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PUENTE_IMAGENES_AC", "PUENTE_IMAGENES_AC\PUENTE_IMAGENES_AC.csproj", "{C00D4C80-433A-4D5D-9335-4D6F91554FA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoMonitor", "InfoMonitor\InfoMonitor.csproj", "{1E5BAC72-2C39-4B47-9765-9682D39583B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RECIBE_IMAGENES_AC", "RECIBE_IMAGENES_AC\RECIBE_IMAGENES_AC.csproj", "{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE9D4E85-34B0-4EF4-8EFA-2A308935C45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE9D4E85-34B0-4EF4-8EFA-2A308935C45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE9D4E85-34B0-4EF4-8EFA-2A308935C45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{1E5BAC72-2C39-4B47-9765-9682D39583B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E5BAC72-2C39-4B47-9765-9682D39583B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E5BAC72-2C39-4B47-9765-9682D39583B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BB6AC6E-BCEA-4935-AA43-80A89E007F4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

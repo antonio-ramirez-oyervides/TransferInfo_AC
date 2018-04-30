@@ -46,7 +46,7 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li ><a href="#">Home</a></li>
+                        <li ><a href="default.aspx">Home</a></li>
                         <li><a href="SendInfo.aspx">Puente Imagenes</a></li>
                         <li><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
                         <li class="active"><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>

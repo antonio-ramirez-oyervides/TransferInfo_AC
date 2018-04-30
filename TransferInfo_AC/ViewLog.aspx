@@ -22,7 +22,7 @@
 
     <script type="text/javascript">
         $(function () {
-            $('#datetimepicker1').datetimepicker({ format: 'DD/MM/YYYY' });
+            $('#datetimepicker1').datetimepicker({ format: 'DDMMYYYY' });
 
             if ($('#fechaSel').val() == "") {
                 var today = new Date();
@@ -76,7 +76,7 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Home</a></li>
+                    <li ><a href="default.aspx">Home</a></li>
                     <li><a href="SendInfo.aspx">Puente Imagenes</a></li>
                     <li class="active"><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
                     <li><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>

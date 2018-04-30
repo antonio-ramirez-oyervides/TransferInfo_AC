@@ -65,7 +65,7 @@ namespace TransferInfo_AC
             try
             {
                 string PathExp = ConfigurationManager.AppSettings["PathLog"].ToString();
-                string archivo = PathExp.Replace("\\\\", "\\") + "\\Log_" + txtfecha.Text.Trim() + "\\log.txt";
+                string archivo = PathExp.Replace("\\\\", "\\") + "\\Log_" + txtfecha.Text.Trim() + "\\Puente_Imagenes.txt";
 
                 if (File.Exists(archivo))
                 {

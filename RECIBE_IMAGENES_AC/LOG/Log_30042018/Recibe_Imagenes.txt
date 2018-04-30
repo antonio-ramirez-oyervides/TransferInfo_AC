@@ -1,0 +1,2 @@
+﻿Log|capturista|20185779199|17944|Inicia RECIBE|30/04/2018 1:56:04
+Request|capturista|20185779199|17944|C:\\Users\\Heat45\\Documents\\Visual Studio 2015\\Projects\\TransferInfo_AC\\RECIBE_IMAGENES_AC\\LOG\Expediente_17944_20185779199_100\Expediente_30042018_15604.zip|30/04/2018 1:56:04

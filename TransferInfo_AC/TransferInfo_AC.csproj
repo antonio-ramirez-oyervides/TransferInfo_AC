@@ -94,6 +94,11 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
     <None Include="Web References\PUENTE_IMAGENES_AC\WS_PUENTE_IMAGENES.wsdl" />
+    <Content Include="Web References\RECIBE_IMAGENES_AC\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </Content>
+    <None Include="Web References\RECIBE_IMAGENES_AC\WS_RECIBEIMAGENES.wsdl" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -106,6 +111,7 @@
     <Content Include="SendInfo.aspx" />
     <Content Include="ViewLog.aspx" />
     <None Include="Web References\PUENTE_IMAGENES_AC\WS_PUENTE_IMAGENES.disco" />
+    <None Include="Web References\RECIBE_IMAGENES_AC\WS_RECIBEIMAGENES.disco" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -158,6 +164,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\RECIBE_IMAGENES_AC\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -173,6 +184,17 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://localhost:24639/WS_RECIBEIMAGENES.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\RECIBE_IMAGENES_AC\</RelPath>
+      <UpdateFromURL>http://localhost:24639/WS_RECIBEIMAGENES.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>TransferInfo_AC_RECIBE_IMAGENES_AC_WS_RECIBEIMAGENES</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://localhost:7363/WS_PUENTE_IMAGENES.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\PUENTE_IMAGENES_AC\</RelPath>
