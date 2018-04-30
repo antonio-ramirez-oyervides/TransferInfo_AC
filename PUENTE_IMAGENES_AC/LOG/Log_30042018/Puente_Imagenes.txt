@@ -1,8 +1,4 @@
-﻿Log|capturista|20183128478|18199|Log Guardado|30/04/2018 1:55:44
-Request|capturista|20183128478|18199|C:\\Users\\Heat45\\Documents\\Visual Studio 2015\\Projects\\TransferInfo_AC\\PUENTE_IMAGENES_AC\\LOG\Expediente_18199_20183128478_100\Expediente_30042018_15544.zip|30/04/2018 1:55:44
-Resultado WS|Servicio ejecutado|ERROR AL EJECUTAR WS: 2 - The remote name could not be resolved: 'pivalint002'|30/04/2018 1:55:53
-
-Log|capturista|20182137491|72659|Log Guardado|30/04/2018 10:46:17
-Request|capturista|20182137491|72659|C:\\Users\\Heat45\\Documents\\Visual Studio 2015\\Projects\\TransferInfo_AC\\PUENTE_IMAGENES_AC\\LOG\Expediente_72659_20182137491_100\Expediente_30042018_104617.zip|30/04/2018 10:46:17
-Resultado WS|Servicio ejecutado|ERROR AL EJECUTAR WS: 2 - The remote name could not be resolved: 'pivalint002'|30/04/2018 10:46:20
+﻿Log|capturista|20182137491|72659|Log Guardado|30/04/2018 4:09:16
+Request|capturista|20182137491|72659|C:\\Users\\Heat45\\Documents\\Visual Studio 2015\\Projects\\TransferInfo_AC\\PUENTE_IMAGENES_AC\\LOG\Expediente_72659_20182137491_100\Expediente_30042018_40916.zip|30/04/2018 4:09:16
+Resultado WS|Servicio ejecutado|ERROR AL EJECUTAR WS: 2 - The remote name could not be resolved: 'pivalint002'|30/04/2018 4:09:25
 

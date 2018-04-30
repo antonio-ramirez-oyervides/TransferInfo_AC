@@ -22,6 +22,7 @@
             padding: 40px 15px;
             text-align: center;
         }
+
         .auto-style1 {
             width: 550px;
             border-collapse: collapse;
@@ -44,10 +45,20 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="SendInfo.aspx">Puente Imagenes</a></li>
-                    <li><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
-                    <li><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Puente Imagenes<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="SendInfo.aspx">Test Puente Imagenes</a></li>
+                            <li><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recibe Imagenes<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                    <li><a href="RecibeImagenes.aspx">Test Recibe Imagenes</a></li>
                     <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -57,9 +68,6 @@
     <div class="container">
 
         <div class="starter-template">
-            
-          
-            
         </div>
 
     </div>

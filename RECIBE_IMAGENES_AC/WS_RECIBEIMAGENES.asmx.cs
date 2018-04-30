@@ -30,219 +30,250 @@ namespace WS_RECIBEIMAGENES_AC
             int paso = 0;
             Monitor monitor = new Monitor();
 
+            string mensaje = "";
+
             try
             {
                 monitor.SaveLog(Usuario, idTramite, nss, idExpediente, "Inicia RECIBE", nombreLog);
                 monitor.SaveRequest(Usuario, idTramite, nss, idExpediente, ArchivoZip, nombreLog);
                 paso += 1;
             }
-            catch (Exception ex) {
-                monitor.SaveLog( Usuario, idTramite, nss, idExpediente, "Inicia RECIBE", nombreLog);
+            catch (Exception ex)
+            {
+                monitor.SaveLog(Usuario, idTramite, nss, idExpediente, "Inicia RECIBE", nombreLog);
                 monitor.SaveLog("Error RECIBE", string.Format("Paso:{0}, Erorr:{1}", paso.ToString(), ex.Message), nombreLog);
             }
-            
 
             string nombreImagenes = "";
-            string mensaje = "";
             ZipFile zip = new ZipFile();
             string fecha = "";
             string existe = "0";
             string directorioImagenes = "";
 
-            PIMX_EncryptionServices encryptor = new PIMX_EncryptionServices();
-            string usuarioDencriptado = encryptor.DecryptString128Bit(ConfigurationManager.AppSettings.Get("userWinston").ToString(), ConfigurationManager.AppSettings.Get("gsHexSeed").ToString()).Replace("\0", "");
-            string contraDencriptada = encryptor.DecryptString128Bit(ConfigurationManager.AppSettings.Get("pswWinston").ToString(), ConfigurationManager.AppSettings.Get("gsHexSeed").ToString()).Replace("\0", "");
-
-            //VALIDA SI EL USUARIO Y CONTRASEÑA SON CORRECTOS
-            if (Usuario == usuarioDencriptado && Password == contraDencriptada)
+            try
             {
-                OperacionesOracle oracle = new OperacionesOracle();
-                string msjError = oracle.out_error;
+                PIMX_EncryptionServices encryptor = new PIMX_EncryptionServices();
+                string usuarioDencriptado = encryptor.DecryptString128Bit(ConfigurationManager.AppSettings.Get("userWinston").ToString(), ConfigurationManager.AppSettings.Get("gsHexSeed").ToString()).Replace("\0", "");
+                string contraDencriptada = encryptor.DecryptString128Bit(ConfigurationManager.AppSettings.Get("pswWinston").ToString(), ConfigurationManager.AppSettings.Get("gsHexSeed").ToString()).Replace("\0", "");
+                paso += 1;
 
-                //EJECUTA SP DE ORACLE QUE VERIFICA SI EL EXPEDIENTE EXISTE EN LA BD
-                existe = oracle.verificaExpediente(idExpediente);
-                directorioImagenes = oracle.obtenerRutas(idTramite);
-
-                //VALIDA SI EXISTE EL EXPEDIENTE
-                if (existe == "1")
+                //VALIDA SI EL USUARIO Y CONTRASEÑA SON CORRECTOS
+                if (Usuario == usuarioDencriptado && Password == contraDencriptada)
                 {
-                    #region < Z I P >
+                    OperacionesOracle oracle = new OperacionesOracle();
+                    string msjError = oracle.out_error;
 
-                    //NOMENCLATURA ZIP
-                    //afore(3)idtramite(2)curp(18)tipotrabajdor(1)countImagenes(2)fechaenvio(8(añoMesDia))constante(3).zip
-                    string afore = "";
-                    string curp = "";
-                    string tipoTrabajador = "";
-                    string fechaEnvio = "";
-                    string constanteAfore = "000";
-                    bool zipnuevo = false;
-                    string nombreZipFinal = "";
+                    //EJECUTA SP DE ORACLE QUE VERIFICA SI EL EXPEDIENTE EXISTE EN LA BD
+                    existe = oracle.verificaExpediente(idExpediente);
+                    directorioImagenes = oracle.obtenerRutas(idTramite);
 
-                    mensaje = "CONVERTIR ARCHIVO EN BYTES";
-                    byte[] bytes = new byte[ArchivoZip.Length];
-                    bytes = ArchivoZip;
-
-                    try
+                    //VALIDA SI EXISTE EL EXPEDIENTE
+                    if (existe == "1")
                     {
-                        mensaje = "GUARDAR ARCHIVO ORIGINAL EN EL SERVIDOR DE IMAGENES";
-                        //mensaje = "ESCRIBIR ARREGLO DE BYTES";
-                        File.WriteAllBytes(directorioImagenes + "archivo.zip" + idExpediente, bytes);
-                        mensaje = "ESCRITURA BYTES EXITOSA";
-                    }
-                    catch (Exception ex)
-                    {
-                        oracle.guardaEstatus(idExpediente, "RECIBE", mensaje + ex.Message, "");
-                        return "02 - AL ESCRIBIR EN EL DIRECTORIO, " + mensaje + "\n" + ex.Message;
-                    }
-                    try
-                    {
+                        #region < Z I P >
 
-                        mensaje = "LEE ZIP DEL SERVIDOR DE IMAGENES";
-                        zip = ZipFile.Read(directorioImagenes + "archivo.zip" + idExpediente);
-
-                        mensaje = "CONTAR LAS IMAGENES";
-                        int totalEntries = zip.Entries.Count;
-                        //CONVIERTE A STRING EL NUMERO DE IMAGENES PARA ANEXARLO AL NOMBRE DEL ZIP
-                        string imagenesCuenta = totalEntries.ToString();
-                        //EL NOMBRE DEL ZIP LLEVA LA CANTIDAD DE IMAGENES EN EL EN 2 DIGITOS, SI SON
-                        //MENOS DE 10 SE LE AGREGA UN CERO PARA APEGARSE A LA NOMENCLATURA DEL ZIP
-                        if (totalEntries < 10)
-                        {
-                            imagenesCuenta = "0" + imagenesCuenta;
-                        }
-
-                        mensaje = "DESCOMPRIMIR EL ZIP Y/O MANDAR CADENA DE NOMBRE DE IMAGENES";
-                        //GUARDA LOS NOMBRES DE LAS IMAGENES EN UNA CADENA. |||VARIABLE: "nombreImagenes"|||
-                        // Y GUARDA LAS IMAGENES EN EL SERVIDOR DE IMAGENES (DESCOMPRESIÓN DE ZIP)
-                        foreach (ZipEntry archivo in zip.Entries)
-                        {
-                            nombreImagenes = nombreImagenes + archivo.FileName + "#";
-                            archivo.Extract(directorioImagenes);
-                        }
-
-                        mensaje = "SE EXTRAJERON LAS IMAGENES";
-                        //OBTIENE LA INFORMACION DESGLOSADA DE LA IMAGEN PARA RENOMBRAR EL ZIP
-                        afore = nombreImagenes.Substring(0, 3);
-                        curp = nombreImagenes.Substring(5, 18);
-                        tipoTrabajador = nombreImagenes.Substring(23, 1);
-                        fechaEnvio = nombreImagenes.Substring(27, 8);
-                        constanteAfore = nombreImagenes.Substring(35, 3);
-
-                        zip.Dispose();
-
-                        mensaje = "CONCATENAR NOMBRE FINAL";
-                        nombreZipFinal = afore + idTramite + curp + tipoTrabajador + imagenesCuenta + fechaEnvio + constanteAfore;
-
-                        mensaje = "RENOMBRADO";
-                        System.IO.File.Move(directorioImagenes + "archivo.zip" + idExpediente,
-                                            directorioImagenes + nombreZipFinal + ".zip");
+                        //NOMENCLATURA ZIP
                         //afore(3)idtramite(2)curp(18)tipotrabajdor(1)countImagenes(2)fechaenvio(8(añoMesDia))constante(3).zip
-                        zipnuevo = true;
-                        zip.Dispose();
-                    }
-                    catch (Exception ex)
-                    {
-                        oracle.guardaEstatus(idExpediente, "RECIBE", mensaje + ex.Message, "");
-                        zip.Dispose();
-                        //borra archivos y zip
-                        if (zipnuevo == false)
-                            BorraImagenes(nombreImagenes, directorioImagenes, "archivo.zip", true);
-                        else
-                            BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, true);
-                        return "02 - ERROR EN CONVERSIONES DEL ZIP, " + mensaje + "\n" + ex.ToString();
-                    }
+                        string afore = "";
+                        string curp = "";
+                        string tipoTrabajador = "";
+                        string fechaEnvio = "";
+                        string constanteAfore = "000";
+                        bool zipnuevo = false;
+                        string nombreZipFinal = "";
 
-                    #endregion
+                        mensaje = "CONVERTIR ARCHIVO EN BYTES";
+                        byte[] bytes = new byte[ArchivoZip.Length];
+                        bytes = ArchivoZip;
 
-                    #region < P A R A M E T R O S   O R A C L E >
-
-                    OperacionesOracle objCon = new OperacionesOracle();
-                    OracleConnection cn = objCon.connect();
-                    OracleParameter op = null;
-                    OracleCommand cmd = cn.CreateCommand();
-                    string estado = " ";
-                    try
-                    {
-                        mensaje = "CREAR LOS COMANDOS ORACLE";
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-
-                        mensaje = "ASIGNAR VARIABLES DE ENTRADA";
-                        cmd.CommandText = "BFP_IMAGENES_EXPELEC_PKG.act_estatus_llegada_imagenes";
-                        cmd.Parameters.Add("p_id_tramite", OracleDbType.Varchar2).Value = idTramite;
-
-                        mensaje = "EXPEDIENTE O NSS";
-                        cmd.Parameters.Add("p_id_expediente", OracleDbType.Varchar2).Value = idExpediente;
-                        cmd.Parameters.Add("p_id_nss", OracleDbType.Varchar2).Value = nss;
-
-                        mensaje = "NOMBRE ARCHIVO O ESTATUS";
-                        cmd.Parameters.Add("p_nom_archivo_zip", OracleDbType.Varchar2).Value = nombreZipFinal + ".zip";
-                        cmd.Parameters.Add("p_estatus", OracleDbType.Varchar2).Value = estado;
-
-                        mensaje = "CADENA DE ARCHIVOS";
-                        cmd.Parameters.Add("p_archivos", OracleDbType.Varchar2).Value = nombreImagenes;
-
-                        mensaje = "RUTA";
-                        cmd.Parameters.Add("p_ruta", OracleDbType.Varchar2).Value = directorioImagenes;
-
-                        mensaje = "CREAR VARIABLE DE SALIDA (FECHA)";
-                        op = new OracleParameter("p_fecha", OracleDbType.Varchar2);
-                        op.Direction = ParameterDirection.Output;
-                        op.Size = 4000;
-                        cmd.Parameters.Add(op);
-
-                        mensaje = "CONVERTIR FECHA A STRING";
-                        cmd.ExecuteNonQuery();
-                        fecha = op.Value.ToString();
-
-                        mensaje = "FECHA ASIGNADA" + fecha;
-
-                        cn.Dispose();
-                        cn.Close();
-                    }
-
-                    catch (Exception ex)
-                    {
-                        BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, true);
-
-                        cn.Dispose();
-                        cn.Close();
-                        return "02 - Error en la conexion " + mensaje + "\n" + ex.Message;
-                    }
-
-                    #endregion
-
-                    try
-                    {
-                        if (fecha.Substring(0, 2) == "01")
+                        try
                         {
-                            //BORRAR IMAGENES PERO NO EL ZIP
-                            mensaje = "INTENTAR BORRAR EL ZIP";
-                            BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, false);
-                            return fecha;
+                            mensaje = "GUARDAR ARCHIVO ORIGINAL EN EL SERVIDOR DE IMAGENES";
+                            //mensaje = "ESCRIBIR ARREGLO DE BYTES";
+                            File.WriteAllBytes(directorioImagenes + "archivo.zip" + idExpediente, bytes);
+                            mensaje = "ESCRITURA BYTES EXITOSA";
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            //BORRA TODO
-                            mensaje = "INTENTAR BORRAR EL ZIP Y LAS IMAGENES";
+                            oracle.guardaEstatus(idExpediente, "RECIBE", mensaje + ex.Message, "");
+                            mensaje = "02 - AL ESCRIBIR EN EL DIRECTORIO, " + mensaje + "\n" + ex.Message;
+                            monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                            return mensaje;
+                        }
+                        try
+                        {
+
+                            mensaje = "LEE ZIP DEL SERVIDOR DE IMAGENES";
+                            zip = ZipFile.Read(directorioImagenes + "archivo.zip" + idExpediente);
+
+                            mensaje = "CONTAR LAS IMAGENES";
+                            int totalEntries = zip.Entries.Count;
+                            //CONVIERTE A STRING EL NUMERO DE IMAGENES PARA ANEXARLO AL NOMBRE DEL ZIP
+                            string imagenesCuenta = totalEntries.ToString();
+                            //EL NOMBRE DEL ZIP LLEVA LA CANTIDAD DE IMAGENES EN EL EN 2 DIGITOS, SI SON
+                            //MENOS DE 10 SE LE AGREGA UN CERO PARA APEGARSE A LA NOMENCLATURA DEL ZIP
+                            if (totalEntries < 10)
+                            {
+                                imagenesCuenta = "0" + imagenesCuenta;
+                            }
+
+                            mensaje = "DESCOMPRIMIR EL ZIP Y/O MANDAR CADENA DE NOMBRE DE IMAGENES";
+                            //GUARDA LOS NOMBRES DE LAS IMAGENES EN UNA CADENA. |||VARIABLE: "nombreImagenes"|||
+                            // Y GUARDA LAS IMAGENES EN EL SERVIDOR DE IMAGENES (DESCOMPRESIÓN DE ZIP)
+                            foreach (ZipEntry archivo in zip.Entries)
+                            {
+                                nombreImagenes = nombreImagenes + archivo.FileName + "#";
+                                archivo.Extract(directorioImagenes);
+                            }
+
+                            mensaje = "SE EXTRAJERON LAS IMAGENES";
+                            //OBTIENE LA INFORMACION DESGLOSADA DE LA IMAGEN PARA RENOMBRAR EL ZIP
+                            afore = nombreImagenes.Substring(0, 3);
+                            curp = nombreImagenes.Substring(5, 18);
+                            tipoTrabajador = nombreImagenes.Substring(23, 1);
+                            fechaEnvio = nombreImagenes.Substring(27, 8);
+                            constanteAfore = nombreImagenes.Substring(35, 3);
+
+                            zip.Dispose();
+
+                            mensaje = "CONCATENAR NOMBRE FINAL";
+                            nombreZipFinal = afore + idTramite + curp + tipoTrabajador + imagenesCuenta + fechaEnvio + constanteAfore;
+
+                            mensaje = "RENOMBRADO";
+                            System.IO.File.Move(directorioImagenes + "archivo.zip" + idExpediente,
+                                                directorioImagenes + nombreZipFinal + ".zip");
+                            //afore(3)idtramite(2)curp(18)tipotrabajdor(1)countImagenes(2)fechaenvio(8(añoMesDia))constante(3).zip
+                            zipnuevo = true;
+                            zip.Dispose();
+                        }
+                        catch (Exception ex)
+                        {
+                            oracle.guardaEstatus(idExpediente, "RECIBE", mensaje + ex.Message, "");
+                            zip.Dispose();
+                            //borra archivos y zip
+                            if (zipnuevo == false)
+                                BorraImagenes(nombreImagenes, directorioImagenes, "archivo.zip", true);
+                            else
+                                BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, true);
+
+                            mensaje = "02 - ERROR EN CONVERSIONES DEL ZIP, " + mensaje + "\n" + ex.ToString();
+                            monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                            return mensaje;
+                        }
+
+                        #endregion
+
+                        #region < P A R A M E T R O S   O R A C L E >
+
+                        OperacionesOracle objCon = new OperacionesOracle();
+                        OracleConnection cn = objCon.connect();
+                        OracleParameter op = null;
+                        OracleCommand cmd = cn.CreateCommand();
+                        string estado = " ";
+                        try
+                        {
+                            mensaje = "CREAR LOS COMANDOS ORACLE";
+                            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                            mensaje = "ASIGNAR VARIABLES DE ENTRADA";
+                            cmd.CommandText = "BFP_IMAGENES_EXPELEC_PKG.act_estatus_llegada_imagenes";
+                            cmd.Parameters.Add("p_id_tramite", OracleDbType.Varchar2).Value = idTramite;
+
+                            mensaje = "EXPEDIENTE O NSS";
+                            cmd.Parameters.Add("p_id_expediente", OracleDbType.Varchar2).Value = idExpediente;
+                            cmd.Parameters.Add("p_id_nss", OracleDbType.Varchar2).Value = nss;
+
+                            mensaje = "NOMBRE ARCHIVO O ESTATUS";
+                            cmd.Parameters.Add("p_nom_archivo_zip", OracleDbType.Varchar2).Value = nombreZipFinal + ".zip";
+                            cmd.Parameters.Add("p_estatus", OracleDbType.Varchar2).Value = estado;
+
+                            mensaje = "CADENA DE ARCHIVOS";
+                            cmd.Parameters.Add("p_archivos", OracleDbType.Varchar2).Value = nombreImagenes;
+
+                            mensaje = "RUTA";
+                            cmd.Parameters.Add("p_ruta", OracleDbType.Varchar2).Value = directorioImagenes;
+
+                            mensaje = "CREAR VARIABLE DE SALIDA (FECHA)";
+                            op = new OracleParameter("p_fecha", OracleDbType.Varchar2);
+                            op.Direction = ParameterDirection.Output;
+                            op.Size = 4000;
+                            cmd.Parameters.Add(op);
+
+                            mensaje = "CONVERTIR FECHA A STRING";
+                            cmd.ExecuteNonQuery();
+                            fecha = op.Value.ToString();
+
+                            mensaje = "FECHA ASIGNADA" + fecha;
+
+                            cn.Dispose();
+                            cn.Close();
+                        }
+
+                        catch (Exception ex)
+                        {
                             BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, true);
-                            return fecha;
+
+                            cn.Dispose();
+                            cn.Close();
+                            mensaje = "02 - Error en la conexion " + mensaje + "\n" + ex.Message;
+                            monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                            return mensaje;
+                        }
+
+                        #endregion
+
+                        try
+                        {
+                            if (fecha.Substring(0, 2) == "01")
+                            {
+                                //BORRAR IMAGENES PERO NO EL ZIP
+                                mensaje = "INTENTAR BORRAR EL ZIP";
+                                monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                                BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, false);
+                                return fecha;
+                            }
+                            else
+                            {
+                                //BORRA TODO
+                                mensaje = "INTENTAR BORRAR EL ZIP Y LAS IMAGENES";
+                                monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                                BorraImagenes(nombreImagenes, directorioImagenes, nombreZipFinal, true);
+                                return fecha;
+                            }
+                        }
+
+                        catch (Exception ex)
+                        {
+                            mensaje = "ERROR AL PREGUNTAR EL 01 EN LA FECHA";
+                            mensaje = "02 - " + fecha + "\n" + mensaje + "\n" + ex.ToString();
+                            monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                            return mensaje;
                         }
                     }
 
-                    catch (Exception ex)
+                    else
                     {
-                        mensaje = "ERROR AL PREGUNTAR EL 01 EN LA FECHA";
-                        return "02 - " + fecha + "\n" + mensaje + "\n" + ex.ToString();
+                        mensaje = "02 - No existe expediente";
+                        monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                        return mensaje;
                     }
                 }
-
                 else
                 {
-                    return "02 - No existe expediente";
+                    mensaje = "Usuario o contraseña incorrectos";
+                    monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                    return mensaje;
                 }
             }
-            else
-                return "Usuario o contraseña incorrectos";
+            catch (Exception ex)
+            {
+                mensaje = string.Format("ERROR AL EJECUTAR RECIBE: PASO:{0}, ERORR:{1}",paso.ToString(),ex.Message.ToString());
+                monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+                return mensaje;
+            }
+
+            monitor.SaveLog(mensaje, "Servicio ejecutado", nombreLog);
+            return mensaje;
         }
 
         public void BorraImagenes(string nombreImagenes, string rutaBorrado, string zipBorrar, bool borraZip)
@@ -304,7 +335,7 @@ namespace WS_RECIBEIMAGENES_AC
             }
             catch (Exception ex)
             {
-                monitor.SaveLog("Error BorradoImagenes", string.Format("Paso:{0}, RutaBorrado:{1}, Error:{2}", paso.ToString(),rutaBorrado, ex.Message), nombreLog);
+                monitor.SaveLog("Error BorradoImagenes", string.Format("Paso:{0}, RutaBorrado:{1}, Error:{2}", paso.ToString(), rutaBorrado, ex.Message), nombreLog);
             }
         }
     }

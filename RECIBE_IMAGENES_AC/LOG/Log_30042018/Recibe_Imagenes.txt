@@ -1,2 +1,4 @@
-﻿Log|capturista|20185779199|17944|Inicia RECIBE|30/04/2018 1:56:04
-Request|capturista|20185779199|17944|C:\\Users\\Heat45\\Documents\\Visual Studio 2015\\Projects\\TransferInfo_AC\\RECIBE_IMAGENES_AC\\LOG\Expediente_17944_20185779199_100\Expediente_30042018_15604.zip|30/04/2018 1:56:04
+﻿Log|capturista|20188568517|13311|Inicia RECIBE|30/04/2018 4:09:37
+Request|capturista|20188568517|13311|C:\\Users\\Heat45\\Documents\\Visual Studio 2015\\Projects\\TransferInfo_AC\\RECIBE_IMAGENES_AC\\LOG\Expediente_13311_20188568517_100\Expediente_30042018_40937.zip|30/04/2018 4:09:37
+Resultado WS|Servicio ejecutado|ERROR AL EJECUTAR RECIBE: PASO:1, ERORR:Object reference not set to an instance of an object.|30/04/2018 4:09:37
+
