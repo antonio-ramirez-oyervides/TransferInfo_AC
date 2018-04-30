@@ -10,7 +10,7 @@ namespace InfoMonitor
 {
     public class Monitor
     {
-        public string SaveRequest(string IdUsuario, string IdTramite, string NSS, string idExpediente, byte[] ArchivoZip)
+        public string SaveRequest(string IdUsuario, string IdTramite, string NSS, string idExpediente, byte[] ArchivoZip, string nombreLog)
         {
             //Byte[] ArchivoZip    log de sucesos cuando causa error.
             try
@@ -30,7 +30,7 @@ namespace InfoMonitor
                     System.IO.Directory.CreateDirectory(rutaLog);
                 }
                 
-                using (StreamWriter sw = new StreamWriter(rutaLog + "\\Log.txt", true, System.Text.Encoding.UTF8))
+                using (StreamWriter sw = new StreamWriter(rutaLog + "\\" + nombreLog + ".txt", true, System.Text.Encoding.UTF8))
                 {
                     sw.WriteLine("Request|" + IdUsuario + "|" + NSS + "|" + idExpediente + "|" + PathExp + "\\Expediente_" + DateTime.Now.ToString("ddMMyyyy") + "_" + DateTime.Now.ToString("hmmss") + ".zip" + "|" + DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("h:mm:ss"));
                     sw.Close();
@@ -45,7 +45,7 @@ namespace InfoMonitor
 
         }
 
-        public string SaveLog(string IdUsuario, string IdTramite, string NSS, string idExpediente, string text)
+        public string SaveLog(string IdUsuario, string IdTramite, string NSS, string idExpediente, string text, string nombreLog)
         {
             //Byte[] ArchivoZip    log de sucesos cuando causa error.
             try
@@ -57,7 +57,7 @@ namespace InfoMonitor
                     System.IO.Directory.CreateDirectory(rutaLog);
                 }
 
-                using (StreamWriter sw = new StreamWriter(rutaLog + "\\Log.txt", true, System.Text.Encoding.UTF8))
+                using (StreamWriter sw = new StreamWriter(rutaLog + "\\" + nombreLog + ".txt", true, System.Text.Encoding.UTF8))
                 {
                     sw.WriteLine("Log|" + IdUsuario + "|" + NSS + "|" + idExpediente + "|" + text + "|" + DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("h:mm:ss"));
                     sw.Close();
@@ -71,7 +71,7 @@ namespace InfoMonitor
             return "OK|Servicio ejecutado correctamente.";
         }
 
-        public string SaveLog(string mensaje, string text)
+        public string SaveLog(string mensaje, string text, string nombreLog)
         {
             //Byte[] ArchivoZip    log de sucesos cuando causa error.
             try
@@ -83,9 +83,9 @@ namespace InfoMonitor
                     System.IO.Directory.CreateDirectory(rutaLog);
                 }
 
-                using (StreamWriter sw = new StreamWriter(rutaLog + "\\Log.txt", true, System.Text.Encoding.UTF8))
+                using (StreamWriter sw = new StreamWriter(rutaLog + "\\" + nombreLog + ".txt", true, System.Text.Encoding.UTF8))
                 {
-                    sw.WriteLine("Resultado WS|" + mensaje+ "|" + DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("h:mm:ss") + Environment.NewLine);
+                    sw.WriteLine( "Resultado WS|" + text + "|" + mensaje+ "|" + DateTime.Now.ToString("dd/MM/yyyy") + " " + DateTime.Now.ToString("h:mm:ss") + Environment.NewLine);
                     sw.Close();
                 }
             }

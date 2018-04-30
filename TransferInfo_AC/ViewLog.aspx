@@ -77,8 +77,10 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="#">Home</a></li>
-                    <li><a href="SendInfo.aspx">Descarga Test</a></li>
-                    <li class="active"><a href="ViewLog.aspx">Visor Log</a></li>
+                    <li><a href="SendInfo.aspx">Puente Imagenes</a></li>
+                    <li class="active"><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
+                    <li><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>
+                    <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -86,6 +88,12 @@
     </nav>
     <form id="form1" runat="server" autocomplete="off">
         <div class="container starter-template">
+            <div class="row">
+                <h4>Log de "Puente Imagenes"</h4>
+            </div>
+        </div>
+
+        <div class="container">
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div>
@@ -115,7 +123,7 @@
                         </span>
                     </div>
                     <div class="btn btn-info" onclick="send();">Ver Log</div>
-                    
+
                     <br />
                     <asp:TextBox ID="txtlog" runat="server" Height="333px" Width="100%" TextMode="MultiLine"></asp:TextBox>
                     <div class="label-info">

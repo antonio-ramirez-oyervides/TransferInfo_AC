@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="SendInfo.aspx.cs" Inherits="TransferInfo_AC.SendInfo" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="RecibeImagenes.aspx.cs" Inherits="TransferInfo_AC.RecibeImagenes" %>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
     <meta name="author" content="AC SOLUTIONS">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Transfer Info</title>
+    <title>Recibe Imagenes</title>
 
     <link href="Content/bootstrap.min.css" rel="stylesheet">
     <style>
@@ -46,10 +46,10 @@
                 </div>
                 <div id="navbar" class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Home</a></li>
-                        <li class="active"><a href="SendInfo.aspx">Puente Imagenes</a></li>
+                        <li ><a href="#">Home</a></li>
+                        <li><a href="SendInfo.aspx">Puente Imagenes</a></li>
                         <li><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
-                        <li><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>
+                        <li class="active"><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>
                         <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
                     </ul>
                 </div>
@@ -60,7 +60,7 @@
         <div class="container starter-template">
             <div class="row">
                 <div class="col-md-4 col-md-offset-4">
-                    <h4>Ejecución de "Puente Imagenes"</h4>
+                    <h4>Ejecución de "Recibe Imagenes&quot;</h4>
                 </div>
             </div>
         </div>

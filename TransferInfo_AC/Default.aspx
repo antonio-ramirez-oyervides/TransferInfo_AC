@@ -44,8 +44,10 @@
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Home</a></li>
-                    <li><a href="SendInfo.aspx">Descarga Test</a></li>
-                    <li><a href="ViewLog.aspx">Visor Log</a></li>
+                    <li><a href="SendInfo.aspx">Puente Imagenes</a></li>
+                    <li><a href="ViewLog.aspx">Visor Log Puente Imagenes</a></li>
+                    <li><a href="RecibeImagenes.aspx">Recibe Imagenes</a></li>
+                    <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

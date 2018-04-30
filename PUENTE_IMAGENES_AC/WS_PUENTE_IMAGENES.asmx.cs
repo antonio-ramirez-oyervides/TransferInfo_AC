@@ -18,7 +18,7 @@ namespace PUENTE_IMAGENES_AC
     // [System.Web.Script.Services.ScriptService]
     public class WS_PUENTE_IMAGENES : System.Web.Services.WebService
     {
-
+        public string nombreLog = "Puente_Imagenes";
         [WebMethod]
         public string ENLACE(string usuarioWin, string contrasenaWin, string idTramite, string idExpedientes, string nss, byte[] archivo)
         {
@@ -34,10 +34,10 @@ namespace PUENTE_IMAGENES_AC
 
                 try
                 {
-                    monitor.SaveLog(usuarioWin, idTramite, nss, idExpedientes, "Log Guardado");
+                    monitor.SaveLog(usuarioWin, idTramite, nss, idExpedientes, "Log Guardado", nombreLog);
                     trace += 1;
 
-                    monitor.SaveRequest(usuarioWin, idTramite, nss, idExpedientes, archivo);
+                    monitor.SaveRequest(usuarioWin, idTramite, nss, idExpedientes, archivo,nombreLog);
                     trace += 1; 
                 }
                 catch (Exception ex)
@@ -52,13 +52,13 @@ namespace PUENTE_IMAGENES_AC
                     respuesta = webService.RECIBE(archivo, usuarioWin, contrasenaWin, idTramite, idExpedientes, nss);
                     trace += 1;
 
-                    monitor.SaveLog(respuesta, "Servicio ejecutado");
+                    monitor.SaveLog(respuesta, "Servicio ejecutado", nombreLog);
                     trace += 1;
                 }
                 catch(Exception ex)
                 {
                     respuesta = string.Format("ERROR AL EJECUTAR WS: {0} - {1}" ,trace.ToString(), ex.Message);
-                    monitor.SaveLog(respuesta, "Servicio ejecutado");
+                    monitor.SaveLog(respuesta, "Servicio ejecutado", nombreLog);
                     return respuesta;
                 }
 

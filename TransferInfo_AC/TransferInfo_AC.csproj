@@ -82,11 +82,13 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="RecibeImagenes.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="ViewLogRecibeImagenes.aspx" />
     <Content Include="Web References\PUENTE_IMAGENES_AC\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -123,6 +125,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="RecibeImagenes.aspx.cs">
+      <DependentUpon>RecibeImagenes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RecibeImagenes.aspx.designer.cs">
+      <DependentUpon>RecibeImagenes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SendInfo.aspx.cs">
       <DependentUpon>SendInfo.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -136,6 +145,13 @@
     </Compile>
     <Compile Include="ViewLog.aspx.designer.cs">
       <DependentUpon>ViewLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewLogRecibeImagenes.aspx.cs">
+      <DependentUpon>ViewLogRecibeImagenes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ViewLogRecibeImagenes.aspx.designer.cs">
+      <DependentUpon>ViewLogRecibeImagenes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web References\PUENTE_IMAGENES_AC\Reference.cs">
       <AutoGen>True</AutoGen>
