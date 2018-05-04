@@ -61,6 +61,7 @@
                     <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
                         </ul>
                     </li>
+                    <li><a href="AdminValidaciones.aspx">Validaciones</a></li>
                 </ul>
             </div>
                 <!--/.nav-collapse -->

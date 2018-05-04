@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="TransferInfo_AC.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="AdminValidaciones.aspx.cs" Inherits="TransferInfo_AC.AdminValidaciones" %>
 
 <!DOCTYPE html>
 <html>
@@ -44,7 +44,7 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Puente Imagenes<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -55,11 +55,11 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Recibe Imagenes<b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                    <li><a href="RecibeImagenes.aspx">Test Recibe Imagenes</a></li>
-                    <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
+                            <li><a href="RecibeImagenes.aspx">Test Recibe Imagenes</a></li>
+                            <li><a href="ViewLogRecibeImagenes.aspx">Visor Log Recibe Imagenes</a></li>
                         </ul>
                     </li>
-                    <li><a href="AdminValidaciones.aspx">Validaciones</a></li>
+                    <li class="active"><a href="AdminValidaciones.aspx">Validaciones</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -69,6 +69,50 @@
     <div class="container">
 
         <div class="starter-template">
+
+            <%if (dtValidaciones.Rows.Count > 0)
+                {%>
+
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Validación</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Ultima Modificación</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <%foreach (System.Data.DataRow row in dtValidaciones.Rows)
+                        {%>
+                    <tr>
+                        <th scope="row"><%= row["nombreValidacion"].ToString()%></th>
+                        <td><%= row["descripcion"].ToString()%></td>
+                        <td><%= row["fechaModificacion"].ToString()%></td>
+                        <td>
+                            <% if (bool.Parse(row["bitActivo"].ToString()))
+                                {%>
+                            <input type="checkbox" name="ckActivo<%= row["idValidacion"].ToString()%>" checked="checked" />
+                            <%}
+                                else
+                                {%>
+                            <input type="checkbox" name="ckActivo<%= row["idValidacion"].ToString()%>" />
+                            <%} %>
+                            
+                            
+                        </td>
+                    </tr>
+
+                    <%}%>
+                </tbody>
+            </table>
+
+            <input type="button" value="Actualizar Estatus" id="btnActualiza" class="btn btn-info" />
+
+            <%}%>
         </div>
 
     </div>

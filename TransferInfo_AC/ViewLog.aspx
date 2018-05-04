@@ -92,6 +92,7 @@
                         </ul>
                     </li>
                 </ul>
+                <li><a href="AdminValidaciones.aspx">Validaciones</a></li>
             </div>
             <!--/.nav-collapse -->
         </div>
