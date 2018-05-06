@@ -63,11 +63,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AdminValidaciones.aspx" />
+    <Content Include="bin\Ionic.Zip.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\TransferInfo_AC.dll" />
+    <Content Include="bin\TransferInfo_AC.pdb" />
+    <Content Include="BuscaExpediente.aspx" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Default.aspx" />
+    <Content Include="Descarga.aspx" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="packages.config" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -79,11 +86,13 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\Estructura del Proyecto desarrollado.docx" />
+    <Content Include="bin\TransferInfo_AC.dll.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="PDF.aspx" />
     <Content Include="RecibeImagenes.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -91,6 +100,7 @@
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="ViewLogRecibeImagenes.aspx" />
+    <Content Include="VisorExpediente.aspx" />
     <Content Include="Web References\PUENTE_IMAGENES_AC\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -124,6 +134,13 @@
     <Compile Include="AdminValidaciones.aspx.designer.cs">
       <DependentUpon>AdminValidaciones.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BuscaExpediente.aspx.cs">
+      <DependentUpon>BuscaExpediente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscaExpediente.aspx.designer.cs">
+      <DependentUpon>BuscaExpediente.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -131,8 +148,22 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Descarga.aspx.cs">
+      <DependentUpon>Descarga.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Descarga.aspx.designer.cs">
+      <DependentUpon>Descarga.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="PDF.aspx.cs">
+      <DependentUpon>PDF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PDF.aspx.designer.cs">
+      <DependentUpon>PDF.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -167,6 +198,13 @@
     </Compile>
     <Compile Include="ViewLogRecibeImagenes.aspx.designer.cs">
       <DependentUpon>ViewLogRecibeImagenes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VisorExpediente.aspx.cs">
+      <DependentUpon>VisorExpediente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VisorExpediente.aspx.designer.cs">
+      <DependentUpon>VisorExpediente.aspx</DependentUpon>
     </Compile>
     <Compile Include="Web References\PUENTE_IMAGENES_AC\Reference.cs">
       <AutoGen>True</AutoGen>

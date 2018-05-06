@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Data;
 using System.Data.SqlClient;
 using System.Configuration;
+using System.Web.Services;
 
 namespace TransferInfo_AC
 {
@@ -39,7 +40,7 @@ namespace TransferInfo_AC
             }
         }
 
-        private bool CambiaActivationStatus(int idValidation, bool status)
+        public bool CambiaActivationStatus(int idValidation)
         {
             string strConn = ConfigurationManager.AppSettings["Cnn_DBTransferInfo"].ToString();
             SqlConnection conn = new SqlConnection(strConn);
@@ -48,7 +49,6 @@ namespace TransferInfo_AC
             {
                 SqlCommand cmd = new SqlCommand("Spu_ActivarValidacion");
                 cmd.Parameters.Add(new SqlParameter("@idValidacion", idValidation));
-                cmd.Parameters.Add(new SqlParameter("@bitActivo", status));
                 conn.Open();
                 cmd.ExecuteNonQuery();
                 conn.Close();
@@ -68,6 +68,34 @@ namespace TransferInfo_AC
             }
         }
 
+        [WebMethod]
+        public static bool ActivarValidacion(int id)
+        {
+            string strConn = ConfigurationManager.AppSettings["Cnn_DBTransferInfo"].ToString();
+            //SqlConnection conn = new SqlConnection(strConn);
+
+            try
+            {
+                using (var conn = new SqlConnection(strConn))
+                {
+                    SqlCommand cmd = new SqlCommand("Spu_ActivarValidacion");
+                    cmd.Connection = conn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@IdValidacion", id));
+                    conn.Open();
+                    cmd.ExecuteNonQuery();
+                    conn.Close();
+                }
+                
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+            return true;
+        }
 
     }
 }

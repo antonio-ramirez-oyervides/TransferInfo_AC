@@ -29,6 +29,39 @@
             border: 1px solid #000000;
         }
     </style>
+    <script type="text/javascript">
+        function activarValidacion(id,e) {
+            e.preventDefault();
+            var valorOriginal = $('#ckActivo'+id)[0].checked;
+            var valorNuevo=false;
+            
+            if (valorOriginal==true){
+                valorNuevo=false;
+            }
+            else{
+                valorNuevo=true;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "AdminValidaciones.aspx/ActivarValidacion",
+                data: '{id: "' + id + '" }',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (response) {
+                    if (response) {
+                        $('#ckActivo'+id)[0].disabled=false;
+                        $('#ckActivo'+id)[0].checked=valorNuevo;
+                        $('#ckActivo'+id)[0].disabled=true;
+                    }
+                },
+                failure: function (response) {
+                    alert('falla');
+                }
+            });
+        }
+
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -67,21 +100,18 @@
     </nav>
 
     <div class="container">
-
         <div class="starter-template">
 
             <%if (dtValidaciones.Rows.Count > 0)
                 {%>
-
-
-
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Validación</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Ultima Modificación</th>
-                        <th scope="col">Estado</th>
+                        <th scope="col" class="text-center">Validación</th>
+                        <th scope="col" class="text-center">Descripción</th>
+                        <th scope="col" class="text-center">Ultima Modificación</th>
+                        <th scope="col" class="text-center">Estado</th>
+                        <th scope="col" class="text-center">Activar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,29 +119,27 @@
                     <%foreach (System.Data.DataRow row in dtValidaciones.Rows)
                         {%>
                     <tr>
-                        <th scope="row"><%= row["nombreValidacion"].ToString()%></th>
-                        <td><%= row["descripcion"].ToString()%></td>
+                        <th class="text-left" scope="row"><%= row["nombreValidacion"].ToString()%></th>
+                        <td class="text-left"><%= row["descripcion"].ToString()%></td>
                         <td><%= row["fechaModificacion"].ToString()%></td>
-                        <td>
+                        <td class="text-center">
                             <% if (bool.Parse(row["bitActivo"].ToString()))
                                 {%>
-                            <input type="checkbox" name="ckActivo<%= row["idValidacion"].ToString()%>" checked="checked" />
+                            <input type="checkbox" id="ckActivo<%= row["idValidacion"].ToString()%>" checked="checked" disabled />
                             <%}
                                 else
                                 {%>
-                            <input type="checkbox" name="ckActivo<%= row["idValidacion"].ToString()%>" />
+                            <input type="checkbox" id="ckActivo<%= row["idValidacion"].ToString()%>" disabled />
                             <%} %>
-                            
-                            
+                        </td>
+                        <td class="text-center">
+                            <input type="button" id="btnActiva<%= row["idValidacion"].ToString()%>" onclick='activarValidacion(<%= row["idValidacion"].ToString()%>,event)' class="btn btn-info" value="Activar" />
                         </td>
                     </tr>
 
                     <%}%>
                 </tbody>
             </table>
-
-            <input type="button" value="Actualizar Estatus" id="btnActualiza" class="btn btn-info" />
-
             <%}%>
         </div>
 
