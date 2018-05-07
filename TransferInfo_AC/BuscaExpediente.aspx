@@ -44,7 +44,7 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Puente Imagenes<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -60,6 +60,7 @@
                         </ul>
                     </li>
                     <li><a href="AdminValidaciones.aspx">Validaciones</a></li>
+                    <li class="active"><a href="BuscaExpediente.aspx">Visor de Expedientes</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->
@@ -79,7 +80,7 @@
                     <div class="row">
                         <div class="col-lg-6 col-lg-offset-3">
                             <div class="h3">Id Expediente</div>
-                            <asp:TextBox ID="txtExpediente" runat="server" CssClass="form-control"></asp:TextBox>
+                            <asp:TextBox ID="txtExpediente" runat="server" CssClass="form-control" autocomplete="off"></asp:TextBox>
                             <asp:Button ID="btnBuscaExpediente" runat="server" Text="Buscar" CssClass="btn btn-info" OnClick="btnBuscaExpediente_Click" />
                         </div>
                     </div>

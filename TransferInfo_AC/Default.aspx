@@ -60,6 +60,7 @@
                         </ul>
                     </li>
                     <li><a href="AdminValidaciones.aspx">Validaciones</a></li>
+                    <li><a href="BuscaExpediente.aspx">Visor de Expedientes</a></li>
                 </ul>
             </div>
             <!--/.nav-collapse -->

@@ -11,7 +11,19 @@ namespace TransferInfo_AC
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Page.IsPostBack)
+            {
+                archivo.Text = Request["archivo"].ToString();
+                archivo.ReadOnly = true;
+            }
+        }
 
+        protected void BtnDescarga_Click(object sender, EventArgs e)
+        {
+            archivo.ReadOnly = false;
+            Response.AppendHeader("Content-Disposition", "attachment; filename=" + Request["archivo"].ToString());
+            Response.TransmitFile(Request["archivo"].ToString());
+            Response.End();
         }
     }
 }

@@ -46,7 +46,7 @@
                 </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#">Home</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Puente Imagenes<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -62,6 +62,7 @@
                         </ul>
                     </li>
                     <li><a href="AdminValidaciones.aspx">Validaciones</a></li>
+                    <li><a href="BuscaExpediente.aspx">Visor de Expedientes</a></li>
                 </ul>
             </div>
                 <!--/.nav-collapse -->
